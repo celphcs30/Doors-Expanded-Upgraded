@@ -16,33 +16,7 @@
     <Optimize>true</Optimize>
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
-  <Choose>
-    <When Condition=" '$(Configuration)' == 'RW1.6' ">
-      <PropertyGroup>
-        <OutputPath>..\1.6\Assemblies\</OutputPath>
-      </PropertyGroup>
-      <ItemGroup>
-        <PackageReference Include="Krafs.Rimworld.Ref" Version="1.6.*" />
-      </ItemGroup>
-    </When>
-    <When Condition=" '$(Configuration)' == 'RW1.6Unstable' ">
-      <PropertyGroup>
-        <OutputPath>..\1.6\Assemblies\</OutputPath>
-      </PropertyGroup>
-      <ItemGroup>
-        <PackageReference Include="Krafs.Rimworld.Ref" Version="1.6.*-*" />
-      </ItemGroup>
-    </When>
-  </Choose>
-  <ItemGroup>
-    <PackageReference Include="Lib.Harmony" Version="2.2.*" ExcludeAssets="runtime" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Remove="Building_Door_Reference\Building_Door.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Building_Door_Reference\Building_Door.cs" />
-  </ItemGroup>
+  <!-- Package references are defined in Directory.Build.props to avoid duplicates -->
   <ItemGroup>
     <Content Include="..\**\*" Exclude="..\.git\**\*;..\Source\**\*" LinkBase="!ModFolder" />
   </ItemGroup>
