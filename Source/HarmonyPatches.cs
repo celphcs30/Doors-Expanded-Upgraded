@@ -38,11 +38,24 @@ namespace DoorsExpanded
             var rwAssembly = typeof(Building_Door).Assembly;
 
             // Patches for ghost (pre-placement) and blueprints for door expanded.
-            foreach (var original in typeof(Designator_Place).FindLambdaMethods(nameof(Designator_Place.DoExtraGuiControls), typeof(void)))
+            // DoExtraGuiControls may not exist in RimWorld 1.6+, so check first
+            var doExtraGuiControlsMethod = AccessTools.Method(typeof(Designator_Place), "DoExtraGuiControls");
+            if (doExtraGuiControlsMethod != null)
             {
-                Patch(original,
-                    transpiler: nameof(DoorExpandedDesignatorPlaceRotateAgainIfNeededTranspiler),
-                    transpilerRelated: nameof(DoorExpandedRotateAgainIfNeeded));
+                try
+                {
+                    foreach (var original in typeof(Designator_Place).FindLambdaMethods(nameof(Designator_Place.DoExtraGuiControls), typeof(void)))
+                    {
+                        Patch(original,
+                            transpiler: nameof(DoorExpandedDesignatorPlaceRotateAgainIfNeededTranspiler),
+                            transpilerRelated: nameof(DoorExpandedRotateAgainIfNeeded));
+                    }
+                }
+                catch (ArgumentException)
+                {
+                    // DoExtraGuiControls exists but lambda methods not found - skip this patch
+                    // This can happen if the method structure changed in 1.6
+                }
             }
             Patch(original: AccessTools.Method(typeof(Designator_Place), "HandleRotationShortcuts"),
                 transpiler: nameof(DoorExpandedDesignatorPlaceRotateAgainIfNeededTranspiler),
@@ -102,7 +115,6 @@ namespace DoorsExpanded
             // c) satisfies predicate, if given
             var innerTypes = type.GetNestedTypes(AccessTools.all)
                 .Where(innerType => innerType.IsDefined(typeof(CompilerGeneratedAttribute)));
-            var foundMethod = false;
             foreach (var innerType in innerTypes)
             {
                 if (innerType.Name.StartsWith("<" + parentMethodName + ">", StringComparison.Ordinal))
@@ -112,7 +124,6 @@ namespace DoorsExpanded
                         if (method.Name.StartsWith("<", StringComparison.Ordinal) &&
                             method.ReturnType == returnType && (predicate is null || predicate(method)))
                         {
-                            foundMethod = true;
                             yield return method;
                         }
                     }
@@ -124,17 +135,17 @@ namespace DoorsExpanded
                         if (method.Name.StartsWith("<" + parentMethodName + ">", StringComparison.Ordinal) &&
                             method.ReturnType == returnType && (predicate is null || predicate(method)))
                         {
-                            foundMethod = true;
                             yield return method;
                         }
                     }
                 }
             }
-            if (!foundMethod)
-            {
-                throw new ArgumentException($"Could not find any lambda method for type {type} and method {parentMethodName}" +
-                    " that satisfies given predicate");
-            }
+            // Don't throw if method not found - just return empty (allows optional patches)
+            // if (!foundMethod)
+            // {
+            //     throw new ArgumentException($"Could not find any lambda method for type {type} and method {parentMethodName}" +
+            //         " that satisfies given predicate");
+            // }
         }
 
         private static bool IsDoorExpandedDef(Def def) =>
