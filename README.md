@@ -25,6 +25,18 @@ Currently included:
 * Updated for RimWorld 1.6 only (removed support for older versions)
 * Fixed inheritance to use `Building_Door` instead of removed `Building_MultiTileDoor`
 * Cleaned up project structure
+* Added optional Anomaly expansion support with containment stats on secure doors
+
+## Anomaly Expansion Support
+
+If you have the **Anomaly** expansion installed, certain doors will automatically receive containment strength stats for use in containment facilities:
+
+* **Jail Door** (1x1): 100 containment strength
+* **Blast Door** (1x1): 140 containment strength
+* **Blast Door** (2x1): 180 containment strength
+* **Blast Door** (3x2): 300 containment strength
+
+The containment stats are added automatically via a conditional patch that only applies when Anomaly is installed. If you don't have Anomaly, the mod works normally without these stats.
 
 ## Installation
 

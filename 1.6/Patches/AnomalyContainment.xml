@@ -70,6 +70,28 @@
             </li>
           </operations>
         </li>
+
+        <!-- PH_DoorJail (1x1 jail door) - 100 containment -->
+        <li Class="PatchOperationSequence">
+          <operations>
+            <li Class="PatchOperationConditional">
+              <success>Always</success>
+              <xpath>/Defs/ThingDef[defName="PH_DoorJail"]/statBases</xpath>
+              <nomatch Class="PatchOperationAdd">
+                <xpath>/Defs/ThingDef[defName="PH_DoorJail"]</xpath>
+                <value>
+                  <statBases/>
+                </value>
+              </nomatch>
+            </li>
+            <li Class="PatchOperationAdd">
+              <xpath>/Defs/ThingDef[defName="PH_DoorJail"]/statBases</xpath>
+              <value>
+                <ContainmentStrength>100</ContainmentStrength>
+              </value>
+            </li>
+          </operations>
+        </li>
       </operations>
     </match>
   </Operation>
