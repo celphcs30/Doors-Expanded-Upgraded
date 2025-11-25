@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+  <!-- Only apply if Anomaly expansion is installed (check if ContainmentStrength StatDef exists) -->
+  <Operation Class="PatchOperationConditional">
+    <xpath>/Defs/StatDef[defName="ContainmentStrength"]</xpath>
+    <match Class="PatchOperationSequence">
+      <operations>
+        <!-- PH_DoorBlastSingle (1x1 blast door) - 140 containment -->
+        <li Class="PatchOperationSequence">
+          <operations>
+            <li Class="PatchOperationConditional">
+              <success>Always</success>
+              <xpath>/Defs/ThingDef[defName="PH_DoorBlastSingle"]/statBases</xpath>
+              <nomatch Class="PatchOperationAdd">
+                <xpath>/Defs/ThingDef[defName="PH_DoorBlastSingle"]</xpath>
+                <value>
+                  <statBases/>
+                </value>
+              </nomatch>
+            </li>
+            <li Class="PatchOperationAdd">
+              <xpath>/Defs/ThingDef[defName="PH_DoorBlastSingle"]/statBases</xpath>
+              <value>
+                <ContainmentStrength>140</ContainmentStrength>
+              </value>
+            </li>
+          </operations>
+        </li>
+
+        <!-- PH_DoorBlastDoor (2x1 blast door) - 180 containment -->
+        <li Class="PatchOperationSequence">
+          <operations>
+            <li Class="PatchOperationConditional">
+              <success>Always</success>
+              <xpath>/Defs/ThingDef[defName="PH_DoorBlastDoor"]/statBases</xpath>
+              <nomatch Class="PatchOperationAdd">
+                <xpath>/Defs/ThingDef[defName="PH_DoorBlastDoor"]</xpath>
+                <value>
+                  <statBases/>
+                </value>
+              </nomatch>
+            </li>
+            <li Class="PatchOperationAdd">
+              <xpath>/Defs/ThingDef[defName="PH_DoorBlastDoor"]/statBases</xpath>
+              <value>
+                <ContainmentStrength>180</ContainmentStrength>
+              </value>
+            </li>
+          </operations>
+        </li>
+
+        <!-- PH_DoorThickBlastDoor (3x2 blast door) - 300 containment -->
+        <li Class="PatchOperationSequence">
+          <operations>
+            <li Class="PatchOperationConditional">
+              <success>Always</success>
+              <xpath>/Defs/ThingDef[defName="PH_DoorThickBlastDoor"]/statBases</xpath>
+              <nomatch Class="PatchOperationAdd">
+                <xpath>/Defs/ThingDef[defName="PH_DoorThickBlastDoor"]</xpath>
+                <value>
+                  <statBases/>
+                </value>
+              </nomatch>
+            </li>
+            <li Class="PatchOperationAdd">
+              <xpath>/Defs/ThingDef[defName="PH_DoorThickBlastDoor"]/statBases</xpath>
+              <value>
+                <ContainmentStrength>300</ContainmentStrength>
+              </value>
+            </li>
+          </operations>
+        </li>
+      </operations>
+    </match>
+  </Operation>
+</Patch>
+
