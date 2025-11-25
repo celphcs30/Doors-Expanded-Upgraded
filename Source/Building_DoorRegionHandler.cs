@@ -24,7 +24,7 @@ namespace DoorsExpanded
         "Invisible Doors inside larger frames are no longer needed.")]
     public class Building_DoorRegionHandler : Building_Door
     {
-        public override void Tick()
+        protected override void Tick()
         {
             Log.Warning($"{this} remains from RimWorld v1.4/1.5 - destroying this to remain in-line with " +
                 "RW 1.6 Building_Door code for DoorsExpanded");
