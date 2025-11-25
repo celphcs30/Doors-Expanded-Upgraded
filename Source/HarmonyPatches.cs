@@ -57,35 +57,69 @@ namespace DoorsExpanded
                     // This can happen if the method structure changed in 1.6
                 }
             }
-            Patch(original: AccessTools.Method(typeof(Designator_Place), "HandleRotationShortcuts"),
-                transpiler: nameof(DoorExpandedDesignatorPlaceRotateAgainIfNeededTranspiler),
-                transpilerRelated: nameof(DoorExpandedRotateAgainIfNeeded));
-            Patch(original: AccessTools.Method(typeof(GhostDrawer), nameof(GhostDrawer.DrawGhostThing)),
-                transpiler: nameof(DoorExpandedDrawGhostThingTranspiler),
-                transpilerRelated: nameof(DoorExpandedDrawGhostGraphicFromDef));
-            Patch(original: AccessTools.Method(typeof(GhostUtility), nameof(GhostUtility.GhostGraphicFor)),
-                transpiler: nameof(DoorExpandedGhostGraphicForTranspiler));
-            Patch(original: AccessTools.Method(typeof(Blueprint), nameof(Blueprint.SpawnSetup)),
-                prefix: nameof(DoorExpandedBlueprintSpawnSetupPrefix));
+            // HandleRotationShortcuts may not exist in RimWorld 1.6+
+            var handleRotationShortcutsMethod = AccessTools.Method(typeof(Designator_Place), "HandleRotationShortcuts");
+            if (handleRotationShortcutsMethod != null)
+            {
+                Patch(original: handleRotationShortcutsMethod,
+                    transpiler: nameof(DoorExpandedDesignatorPlaceRotateAgainIfNeededTranspiler),
+                    transpilerRelated: nameof(DoorExpandedRotateAgainIfNeeded));
+            }
+            
+            var drawGhostThingMethod = AccessTools.Method(typeof(GhostDrawer), nameof(GhostDrawer.DrawGhostThing));
+            if (drawGhostThingMethod != null)
+            {
+                Patch(original: drawGhostThingMethod,
+                    transpiler: nameof(DoorExpandedDrawGhostThingTranspiler),
+                    transpilerRelated: nameof(DoorExpandedDrawGhostGraphicFromDef));
+            }
+            
+            var ghostGraphicForMethod = AccessTools.Method(typeof(GhostUtility), nameof(GhostUtility.GhostGraphicFor));
+            if (ghostGraphicForMethod != null)
+            {
+                Patch(original: ghostGraphicForMethod,
+                    transpiler: nameof(DoorExpandedGhostGraphicForTranspiler));
+            }
+            
+            var blueprintSpawnSetupMethod = AccessTools.Method(typeof(Blueprint), nameof(Blueprint.SpawnSetup));
+            if (blueprintSpawnSetupMethod != null)
+            {
+                Patch(original: blueprintSpawnSetupMethod,
+                    prefix: nameof(DoorExpandedBlueprintSpawnSetupPrefix));
+            }
+            
             // Blueprint.Draw no longer exists since RW 1.3+, so we patch Thing.DrawAt, which is called for RealtimeOnly drawerType.
             // We can't just use a custom Blueprint subclass with overriden Draw, since ThingDefGenerator_Buildings hardcodes
             // Blueprint_Install for (re)install blueprints.
             // TODO: Instead of patching this, consider patching ThingDefGenerator_Buildings.NewBlueprintDef_Thing in EarlyPatches to
             // allow custom Blueprint for (re)install blueprints, and using custom Blueprint and Blueprint_Install subclasses
             // (potentially also a Blueprint_Install subclass for Building_Door to keep applying the rotation fix for vanilla doors).
-            Patch(original: AccessTools.Method(typeof(Thing), "DrawAt"),
-                prefix: nameof(DoorExpandedThingDrawAtPrefix));
+            var thingDrawAtMethod = AccessTools.Method(typeof(Thing), "DrawAt");
+            if (thingDrawAtMethod != null)
+            {
+                Patch(original: thingDrawAtMethod,
+                    prefix: nameof(DoorExpandedThingDrawAtPrefix));
+            }
 
             // Patches related to door remotes.
-            Patch(original: AccessTools.Method(typeof(FloatMenuMakerMap), "AddJobGiverWorkOrders"),
-                transpiler: nameof(DoorRemoteAddJobGiverWorkOrdersTranspiler),
-                transpilerRelated: nameof(TranslateCustomizeUseDoorRemoteJobLabel));
+            var addJobGiverWorkOrdersMethod = AccessTools.Method(typeof(FloatMenuMakerMap), "AddJobGiverWorkOrders");
+            if (addJobGiverWorkOrdersMethod != null)
+            {
+                Patch(original: addJobGiverWorkOrdersMethod,
+                    transpiler: nameof(DoorRemoteAddJobGiverWorkOrdersTranspiler),
+                    transpilerRelated: nameof(TranslateCustomizeUseDoorRemoteJobLabel));
+            }
         }
 
         private static void Patch(MethodInfo original, string prefix = null, string postfix = null, string transpiler = null,
             string transpilerRelated = null, int priority = Priority.Normal, string[] before = null, string[] after = null,
             bool? debug = null)
         {
+            if (original == null)
+            {
+                Log.Warning("[DoorsExpanded] Attempted to patch null method - skipping patch");
+                return;
+            }
             harmony.Patch(original,
                 NewHarmonyMethod(prefix, priority, before, after, debug),
                 NewHarmonyMethod(postfix, priority, before, after, debug),
