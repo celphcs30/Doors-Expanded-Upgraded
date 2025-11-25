@@ -2,8 +2,8 @@
 <!-- This file is automatically imported in MSBuild 15+ (Visual Studio 2017+) via the Microsoft.Common.props import, so put all the common contents between all the csproj files here -->
 <Project>
   <PropertyGroup>
-    <Configurations>RW1.3;RW1.4;RW1.4Unstable; RW1.4Unstable</Configurations>
-    <Configuration Condition=" '$(Configuration)' == '' ">RW1.5</Configuration>
+    <Configurations>RW1.6;RW1.6Unstable</Configurations>
+    <Configuration Condition=" '$(Configuration)' == '' ">RW1.6</Configuration>
     <TargetFramework>net48</TargetFramework>
     <NoStdLib>true</NoStdLib>
     <LangVersion>10</LangVersion>
@@ -22,56 +22,26 @@
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
   <Choose>
-    <When Condition=" '$(Configuration)' == 'RW1.3' ">
+    <When Condition=" '$(Configuration)' == 'RW1.6' ">
       <PropertyGroup>
-        <OutputPath>..\1.3\Assemblies\</OutputPath>
+        <OutputPath>..\1.6\Assemblies\</OutputPath>
       </PropertyGroup>
       <ItemGroup>
-        <PackageReference Include="Krafs.Rimworld.Ref" Version="1.3.*" /> <!-- only stable versions -->
-      </ItemGroup>      
-    </When>
-    <When Condition=" '$(Configuration)' == 'RW1.4' ">
-      <PropertyGroup>
-        <OutputPath>..\1.4\Assemblies\</OutputPath>
-      </PropertyGroup>
-      <ItemGroup>
-        <PackageReference Include="Krafs.Rimworld.Ref" Version="1.4.*" /> <!-- only stable versions -->
+        <PackageReference Include="Krafs.Rimworld.Ref" Version="1.6.*" />
+        <!-- only stable versions -->
       </ItemGroup>
     </When>
-    <When Condition=" '$(Configuration)' == 'RW1.4Unstable' ">
+    <When Condition=" '$(Configuration)' == 'RW1.6Unstable' ">
       <PropertyGroup>
-        <OutputPath>..\1.4\Assemblies\</OutputPath>
+        <OutputPath>..\1.6\Assemblies\</OutputPath>
       </PropertyGroup>
       <ItemGroup>
-        <PackageReference Include="Krafs.Rimworld.Ref" Version="1.4.*-*" /> <!-- -* suffix allows beta/prerelease versions -->
+        <PackageReference Include="Krafs.Rimworld.Ref" Version="1.6.*-*" />
+        <!-- -* suffix allows beta/prerelease versions -->
       </ItemGroup>
     </When>
-	  <When Condition=" '$(Configuration)' == 'RW1.5' ">
-		  <PropertyGroup>
-			  <OutputPath>..\1.5\Assemblies\</OutputPath>
-		  </PropertyGroup>
-		  <ItemGroup>
-			  <PackageReference Include="Krafs.Rimworld.Ref" Version="1.5.*" />
-			  <!-- only stable versions -->
-		  </ItemGroup>
-	  </When>
-	  <When Condition=" '$(Configuration)' == 'RW1.5Unstable' ">
-		  <PropertyGroup>
-			  <OutputPath>..\1.5\Assemblies\</OutputPath>
-		  </PropertyGroup>
-		  <ItemGroup>
-			  <PackageReference Include="Krafs.Rimworld.Ref" Version="1.5.*-*" />
-			  <!-- -* suffix allows beta/prerelease versions -->
-		  </ItemGroup>
-	  </When>
   </Choose>
   <ItemGroup>
     <PackageReference Include="Lib.Harmony" Version="2.2.*" ExcludeAssets="runtime" />
   </ItemGroup>
-  
-
-  
-  
-  
-
 </Project>

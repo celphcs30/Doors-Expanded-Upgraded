@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configurations>RW1.3;RW1.3Unstable;RW1.4Unstable;RW1.5Unstable</Configurations>
-    <Configuration Condition=" '$(Configuration)' == '' ">RW1.3</Configuration>
+    <Configurations>RW1.6;RW1.6Unstable</Configurations>
+    <Configuration Condition=" '$(Configuration)' == '' ">RW1.6</Configuration>
     <AssemblyName>DoorsExpanded</AssemblyName>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>net48</TargetFramework>
     <NoStdLib>true</NoStdLib>
-    <LangVersion>9.0</LangVersion>
+    <LangVersion>10</LangVersion>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-    <Version>1.4.0.1</Version>
+    <Version>$([System.IO.File]::ReadAllText("$(MSBuildProjectDirectory)\..\About\Version.txt"))</Version>
   </PropertyGroup>
   <PropertyGroup>
     <!-- Always using "Release" build -->
@@ -17,44 +17,25 @@
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
   <Choose>
-	  <When Condition=" '$(Configuration)' == 'RW1.4' ">
-		  <PropertyGroup>
-			  <OutputPath>..\1.4\Assemblies\</OutputPath>
-		  </PropertyGroup>
-		  <ItemGroup>
-			  <PackageReference Include="Krafs.Rimworld.Ref" Version="1.4.*" /> <!-- only stable versions -->
-			  <!-- only stable versions -->
-		  </ItemGroup>
-	  </When>
-	  <When Condition=" '$(Configuration)' == 'RW1.4Unstable' ">
-		  <PropertyGroup>
-			  <OutputPath>..\1.4\Assemblies\</OutputPath>
-		  </PropertyGroup>
-		  <ItemGroup>
-			  <PackageReference Include="Krafs.Rimworld.Ref" Version="1.4.*-*" />
-			  <!-- * suffix allows beta/prerelease versions -->
-		  </ItemGroup>
-	  </When>	  
-    <When Condition=" '$(Configuration)' == 'RW1.3' ">
+    <When Condition=" '$(Configuration)' == 'RW1.6' ">
       <PropertyGroup>
-        <OutputPath>..\1.3\Assemblies\</OutputPath>
+        <OutputPath>..\1.6\Assemblies\</OutputPath>
       </PropertyGroup>
       <ItemGroup>
-        <PackageReference Include="Krafs.Rimworld.Ref" Version="1.3.*" /> <!-- only stable versions -->
+        <PackageReference Include="Krafs.Rimworld.Ref" Version="1.6.*" />
       </ItemGroup>
     </When>
-    <When Condition=" '$(Configuration)' == 'RW1.3Unstable' ">
+    <When Condition=" '$(Configuration)' == 'RW1.6Unstable' ">
       <PropertyGroup>
-        <OutputPath>..\1.3\Assemblies\</OutputPath>
+        <OutputPath>..\1.6\Assemblies\</OutputPath>
       </PropertyGroup>
       <ItemGroup>
-        <PackageReference Include="Krafs.Rimworld.Ref" Version="1.3.*-*" /> <!-- -* suffix allows beta/prerelease versions -->
+        <PackageReference Include="Krafs.Rimworld.Ref" Version="1.6.*-*" />
       </ItemGroup>
     </When>
   </Choose>
   <ItemGroup>
-    <PackageReference Include="Krafs.Rimworld.Ref" Version="1.4.3901" />
-    <PackageReference Include="Lib.Harmony" Version="2.1.*" ExcludeAssets="runtime" />
+    <PackageReference Include="Lib.Harmony" Version="2.2.*" ExcludeAssets="runtime" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Building_Door_Reference\Building_Door.cs" />

@@ -12,20 +12,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		RW1.3|Any CPU = RW1.3|Any CPU
-		RW1.3Unstable|Any CPU = RW1.3Unstable|Any CPU
-		RW1.4Unstable|Any CPU = RW1.4Unstable|Any CPU
-		RW1.5Unstable|Any CPU = RW1.5Unstable|Any CPU
+		RW1.6|Any CPU = RW1.6|Any CPU
+		RW1.6Unstable|Any CPU = RW1.6Unstable|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{3A4FB893-1148-4E16-B548-867647DF1724}.RW1.3|Any CPU.ActiveCfg = RW1.3|Any CPU
-		{3A4FB893-1148-4E16-B548-867647DF1724}.RW1.3|Any CPU.Build.0 = RW1.3|Any CPU
-		{3A4FB893-1148-4E16-B548-867647DF1724}.RW1.3Unstable|Any CPU.ActiveCfg = RW1.3Unstable|Any CPU
-		{3A4FB893-1148-4E16-B548-867647DF1724}.RW1.3Unstable|Any CPU.Build.0 = RW1.3Unstable|Any CPU
-		{3A4FB893-1148-4E16-B548-867647DF1724}.RW1.4Unstable|Any CPU.ActiveCfg = RW1.4Unstable|Any CPU
-		{3A4FB893-1148-4E16-B548-867647DF1724}.RW1.4Unstable|Any CPU.Build.0 = RW1.4Unstable|Any CPU
-		{3A4FB893-1148-4E16-B548-867647DF1724}.RW1.5Unstable|Any CPU.ActiveCfg = RW1.5Unstable|Any CPU
-		{3A4FB893-1148-4E16-B548-867647DF1724}.RW1.5Unstable|Any CPU.Build.0 = RW1.5Unstable|Any CPU
+		{3A4FB893-1148-4E16-B548-867647DF1724}.RW1.6|Any CPU.ActiveCfg = RW1.6|Any CPU
+		{3A4FB893-1148-4E16-B548-867647DF1724}.RW1.6|Any CPU.Build.0 = RW1.6|Any CPU
+		{3A4FB893-1148-4E16-B548-867647DF1724}.RW1.6Unstable|Any CPU.ActiveCfg = RW1.6Unstable|Any CPU
+		{3A4FB893-1148-4E16-B548-867647DF1724}.RW1.6Unstable|Any CPU.Build.0 = RW1.6Unstable|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

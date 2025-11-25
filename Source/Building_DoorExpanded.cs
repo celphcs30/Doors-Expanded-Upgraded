@@ -16,16 +16,14 @@ namespace DoorsExpanded
     ///
     /// Building_DoorExpanded
     ///
-    /// What: Originally, a class for multi-celled, larger and more complicated doors.
-    /// RimWorld 1.5 officially implemented a Building_MultiTileDoor class. This class is
-    /// somewhat obsolete and exists as an extension of MultiTileDoor. Previous versions of
-    /// RimWorld required a complete new class.
+    /// What: A class for multi-celled, larger and more complicated doors.
+    /// RimWorld 1.6's Building_Door supports multi-tile doors natively.
     /// 
-    /// There is still value in the Expanded class, as it allows for swinging doors, stretching doors,
+    /// This class extends Building_Door to add swinging doors, stretching doors,
     /// and is also extended into remote controlled doors.
     ///
     /// </summary>
-    public class Building_DoorExpanded : Building_MultiTileDoor
+    public class Building_DoorExpanded : Building_Door
     {
 
         private CompProperties_DoorExpanded props;

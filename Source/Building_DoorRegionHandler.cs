@@ -20,14 +20,14 @@ namespace DoorsExpanded
     /// their first tick.
     ///
     /// </summary>
-    [Obsolete("No longer in use. RimWorld 1.5 introduced the MultiTileDoor and Invisible Doors inside " +
-        "larger frames are no longer needed.")]
+    [Obsolete("No longer in use. RimWorld 1.6's Building_Door supports multi-tile doors natively. " +
+        "Invisible Doors inside larger frames are no longer needed.")]
     public class Building_DoorRegionHandler : Building_Door
     {
         public override void Tick()
         {
-            Log.Warning($"{this} remains from RimWorld v1.4 - destroying this to remain in-line with new" +
-                "RW 1.5 MultiTileDoor code for DoorsExpanded");
+            Log.Warning($"{this} remains from RimWorld v1.4/1.5 - destroying this to remain in-line with " +
+                "RW 1.6 Building_Door code for DoorsExpanded");
             Destroy();
             return;
         }
