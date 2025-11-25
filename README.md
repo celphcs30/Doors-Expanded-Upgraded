@@ -34,14 +34,6 @@ Currently included:
    - Or your RimWorld installation's `Mods` folder
 3. Enable the mod in RimWorld's mod menu
 
-## Building from Source
-
-1. Install .NET SDK (compatible with .NET Framework 4.8)
-2. Install [Krafs.Rimworld.Ref](https://www.nuget.org/packages/Krafs.Rimworld.Ref) NuGet package (automatically restored)
-3. Open `Source/ProjectHeron.sln` in Visual Studio
-4. Build with configuration `RW1.6` or `RW1.6Unstable`
-5. The DLL will be output to `1.6/Assemblies/DoorsExpanded.dll`
-
 ## Credits
 
 Original mod by Jecrell and lbmaian  
