@@ -299,7 +299,7 @@ namespace DoorsExpanded
                 // def.drawerType is RealtimeOnly. However, it doesn't special case def.drawerType for (re)install blueprints,
                 // since they're not (re)installable by default.
                 // We need this special casing for both build and (re)install blueprints of Building_DoorExpanded
-                // (which doesn't inherit Building_Door), the latter is needed in case any door expanded are (re)installable.
+                // (which now inherits Building_Door in 1.6, but still needs special handling), the latter is needed in case any door expanded are (re)installable.
                 // This could be done in a harmony patch that is applied before ThingDefGenerator_Buildings runs
                 // (must happen before StaticConstructorOnStartup) and would be more efficient, but it's easier to patch here
                 // in SpawnSetup and Draw (see below) and any performance cost is negligible.
